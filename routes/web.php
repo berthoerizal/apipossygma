@@ -14,3 +14,9 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->group(['prefix' => 'admin'], function () use ($router) {
+    $router->get('/v1/tconfuser', 'TconfusersApi@getTconfuser');
+    $router->post('/v1/users/add', 'UsersApi@store');
+    $router->post('/v1/login', 'UsersApi@login');
+});
