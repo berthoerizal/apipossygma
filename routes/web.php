@@ -17,6 +17,6 @@ $router->get('/', function () use ($router) {
 
 $router->group(['prefix' => 'v1'], function () use ($router) {
     $router->get('/tconfuser', 'TconfusersController@getTconfuser');
-    $router->post('/users/add', 'Usersontroller@store');
+    $router->post('/users', 'Usersontroller@store');
     $router->post('/login', 'UsersController@login');
 });
