@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
-class TconfusersApi extends Controller
+class TconfusersController extends Controller
 {
     /**
      * Create a new controller instance.

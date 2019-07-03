@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\User;
 
-class UsersApi extends Controller
+class UsersController extends Controller
 {
     /**
      * Create a new controller instance.
