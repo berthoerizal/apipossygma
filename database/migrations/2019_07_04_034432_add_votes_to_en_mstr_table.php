@@ -15,8 +15,8 @@ class AddVotesToEnMstrTable extends Migration
     {
         Schema::table('en_mstr', function (Blueprint $table) {
             //
-            $table->timestamp('en_upd_date');
-            $table->timestamp('en_dt');
+            $table->timestamp('en_upd_date')->nullable();
+            $table->timestamp('en_dt')->nullable();
         });
     }
 

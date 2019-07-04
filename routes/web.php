@@ -17,7 +17,7 @@ $router->get('/', function () use ($router) {
 
 $router->group(['prefix' => 'v1'], function () use ($router) {
     $router->get('/tconfuser', 'TconfusersController@getTconfuser');
-    $router->post('/users', 'Usersontroller@store');
+    $router->post('/users', 'UsersController@store');
     $router->post('/login', 'UsersController@login');
     $router->get('/entitas', 'EntitasController@entitas');
 });
