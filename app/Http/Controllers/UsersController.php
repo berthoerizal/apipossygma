@@ -24,11 +24,11 @@ class UsersController extends Controller
     {
 
         $userid = $request->input('userid');
-        $email = $request->input('email');
+        // $email = $request->input('email');
         $users = DB::table('tconfuser')->where('userid', $userid)->first();
         $add = User::create([
             'name' =>  $users->usernama,
-            'email' => $email,
+            'email' => $users->usernama,
             'password' => Hash::make($users->password),
             'admin' => $users->en_id,
             'userid' => $users->userid,
@@ -73,8 +73,11 @@ class UsersController extends Controller
 
     public function login(Request $request)
     {
-        $username = $request->input('username');
-        $password = $request->input('password');
+        // $username = $request->input('username');
+        // $password = $request->input('password');
+
+        $username = $request->json()->get('username');
+        $password = $request->json()->get('password');
 
         $validator = Validator::make(
             [
