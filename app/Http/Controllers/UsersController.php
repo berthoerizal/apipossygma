@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Controllers\DB;
+use Illuminate\Support\Facades\DB;
 use App\User;
 
 class UsersController extends Controller
@@ -21,18 +21,20 @@ class UsersController extends Controller
 
     public function store(Request $request)
     {
-        $id = $request->input('id');
-        $users = DB::table('tconfusers')->where('userid', $id)->first();
-
-        $password = Hash::make($request->input('password'));
-
+        
+        $userid = $request->input('userid');
+        $email = $request->input('email');
+        $users = DB::table('tconfuser')->where('userid', $userid)->first();
         $add = User::create([
-            'username' => $users->usernama,
-            'password' => Hash::make($users->password),
             'name' =>  $users->usernama,
-            'email' => $users->email,
-            'userid' => $id
+            'email' => $email,
+            'password' => Hash::make($users->password),
+            'admin'=> $users->en_id,
+            'userid' => $users->userid,
+            'ptnr_id'=>$users->user_ptnr_id,
+            'username' => $users->usernama
         ]);
+        
 
         if ($add) {
             return response()->json([
@@ -44,6 +46,25 @@ class UsersController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'User add fail',
+                'data' => ''
+            ], 400);
+        }
+    }
+
+    public function destroy($id)
+    {
+        $deleted = DB::table('users')->where('id',$id)->delete();
+
+        if ($deleted) {
+            return response()->json([
+                'success' => true,
+                'message' => 'User delete success',
+                'data' => $deleted
+            ], 201);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'User delete fail',
                 'data' => ''
             ], 400);
         }

@@ -20,4 +20,5 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
     $router->post('/users', 'UsersController@store');
     $router->post('/login', 'UsersController@login');
     $router->get('/entitas', 'EntitasController@entitas');
+    $router->delete('/users/{id}', 'UsersController@destroy');
 });
