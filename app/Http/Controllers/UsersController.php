@@ -20,12 +20,17 @@ class UsersController extends Controller
 
     public function store(Request $request)
     {
-        $username = $request->input('username');
+        $id = $request->input('id');
+        $users = DB::table('tconfuser')->where('userid', $id)->first();
+
         $password = Hash::make($request->input('password'));
 
         $add = User::create([
-            'username' => $username,
-            'password' => $password
+            'username' => $users->usernama,
+            'password' => Hash::make($users->password),
+            'name' =>  $users->usernama,
+            'email' => $users->email,
+            'userid' => $id
         ]);
 
         if ($add) {
