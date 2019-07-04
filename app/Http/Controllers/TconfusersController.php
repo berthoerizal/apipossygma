@@ -19,7 +19,7 @@ class TconfusersController extends Controller
 
     public function getTconfuser()
     {
-        $users = DB::table('tconfuser')->get();
+        $users = DB::table('tconfusers')->get();
 
         if ($users) {
             return response()->json([
