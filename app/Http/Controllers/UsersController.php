@@ -24,8 +24,6 @@ class UsersController extends Controller
         $id = $request->input('id');
         $users = DB::table('tconfusers')->where('userid', $id)->first();
 
-        $password = Hash::make($request->input('password'));
-
         $add = User::create([
             'username' => $users->usernama,
             'password' => Hash::make($users->password),
