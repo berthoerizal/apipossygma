@@ -23,4 +23,5 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
     $router->delete('/users/delete/{id}', 'UsersController@destroy');
     $router->get('/location', 'LocationController@getLocation');
     $router->get('/produk', 'ProdukController@getProduk');
+    $router->get('/outlet', 'OutletController@getOulet');
 });
