@@ -23,8 +23,7 @@ class UsersController extends Controller
     public function store(Request $request)
     {
 
-        $userid = $request->input('userid');
-        // $email = $request->input('email');
+        $userid = $request->json()->get('userid');
         $users = DB::table('tconfuser')->where('userid', $userid)->first();
         $add = User::create([
             'name' =>  $users->usernama,
@@ -73,9 +72,6 @@ class UsersController extends Controller
 
     public function login(Request $request)
     {
-        // $username = $request->input('username');
-        // $password = $request->input('password');
-
         $username = $request->json()->get('username');
         $password = $request->json()->get('password');
 
