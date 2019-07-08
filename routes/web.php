@@ -24,16 +24,12 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
     $router->patch('/users/{userid}', 'UsersController@updateUser');
     $router->get('/location', 'LocationController@getLocation');
     $router->get('/produk', 'ProdukController@getProduk');
-<<<<<<< HEAD
     $router->get('/konfigurasi', 'KonfigurasiController@getKonfigurasi');
     $router->post('/konfigurasi', 'KonfigurasiController@insertKonfigurasi');
     $router->delete('/konfigurasi/{id}', 'KonfigurasiController@deleteKonfigurasi');
     $router->patch('/konfigurasi/{id}', 'KonfigurasiController@updateKonfigurasi');
-
-=======
     $router->get('/outlet', 'OutletController@getOutlet');
     $router->post('/outlet', 'OutletController@addOutlet');
     $router->delete('/outlet/{id}', 'OutletController@deleteOutlet');
     $router->patch('/outlet/{id}', 'OutletController@updateOutlet');
->>>>>>> de86630eb9654d7a3e74f8431b45f8d05a52ba46
 });
