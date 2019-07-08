@@ -22,4 +22,6 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
     $router->get('/entitas', 'EntitasController@entitas');
     $router->delete('/users/{id}', 'UsersController@destroy');
     $router->patch('/users/{userid}', 'UsersController@updateUser');
+    $router->get('/location', 'LocationController@getLocation');
+    $router->get('/produk', 'ProdukController@getProduk');
 });
