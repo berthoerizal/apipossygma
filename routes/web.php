@@ -32,4 +32,5 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
     $router->post('/outlet', 'OutletController@addOutlet');
     $router->delete('/outlet/{id}', 'OutletController@deleteOutlet');
     $router->patch('/outlet/{id}', 'OutletController@updateOutlet');
+    $router->patch('/image/{pt_id}', 'ImageController@updateImage');
 });
