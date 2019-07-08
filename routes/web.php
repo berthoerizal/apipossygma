@@ -20,8 +20,11 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
     $router->post('/users', 'UsersController@store');
     $router->post('/login', 'UsersController@login');
     $router->get('/entitas', 'EntitasController@entitas');
-    $router->delete('/users/delete/{id}', 'UsersController@destroy');
+    $router->delete('/users/{id}', 'UsersController@destroy');
     $router->get('/location', 'LocationController@getLocation');
     $router->get('/produk', 'ProdukController@getProduk');
-    $router->get('/outlet', 'OutletController@getOulet');
+    $router->get('/outlet', 'OutletController@getOutlet');
+    $router->post('/outlet', 'OutletController@addOutlet');
+    $router->delete('/outlet/{id}', 'OutletController@deleteOutlet');
+    $router->patch('/outlet/{id}', 'OutletController@updateOutlet');
 });

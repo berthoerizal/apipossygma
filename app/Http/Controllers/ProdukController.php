@@ -14,7 +14,7 @@ class ProdukController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     public function getProduk()
@@ -25,7 +25,7 @@ class ProdukController extends Controller
         $en_id = DB::table('pos_konf')
             ->where('var', 'pi_id')
             ->first();
-        $barang = DB::table('pi_mstr')
+        $getbarang = DB::table('pi_mstr')
             ->join('pid_det', 'pi_mstr.pi_oid', '=', 'pid_det.pid_pi_oid')
             ->join('pidd_det', 'pid_det.pid_oid', '=', 'pidd_det.pidd_pid_oid')
             ->join('pt_mstr', 'pid_det.pid_pt_id', '=', 'pt_mstr.pt_id')
@@ -39,17 +39,17 @@ class ProdukController extends Controller
             ->where('pt_ppn_type', 'E')
             ->get();
 
-        if ($barang) {
+        if ($getbarang) {
             return response()->json([
                 'success' => true,
-                'message' => 'Sukses menampilkan data',
-                'data' => $barang
+                'message' => 'Produk berhasil ditampilakn',
+                'data' => $getbarang
             ], 200);
         } else {
             return response()->json([
                 'success' => false,
-                'message' => 'Gagal menampilkan data',
-                'data' => $barang
+                'message' => 'Produk gagal ditampilkan',
+                'data' => ''
             ], 404);
         }
     }

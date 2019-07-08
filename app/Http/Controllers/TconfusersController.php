@@ -14,23 +14,23 @@ class TconfusersController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     public function getTconfuser()
     {
-        $users = DB::table('tconfuser')->get();
+        $gettconfuser = DB::table('tconfuser')->get();
 
-        if ($users) {
+        if ($gettconfuser) {
             return response()->json([
                 'success' => true,
-                'message' => 'Success',
-                'data' => $users
+                'message' => 'Tconfuser berhasil ditampilkan',
+                'data' => $gettconfuser
             ], 200);
         } else {
             return response()->json([
                 'success' => false,
-                'message' => 'Fail',
+                'message' => 'Tconfuser gagal ditampilkan',
                 'data' => ''
             ], 404);
         }
