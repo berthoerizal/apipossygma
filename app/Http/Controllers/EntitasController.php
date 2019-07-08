@@ -15,18 +15,18 @@ class EntitasController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     public function entitas()
     {
-        $entitas = DB::table('en_mstr')->get();
+        $getentitas = DB::table('en_mstr')->get();
 
-        if ($entitas) {
+        if ($getentitas) {
             return response()->json([
                 'success' => true,
                 'message' => 'Select Entitas success!',
-                'data' => $entitas
+                'data' => $getentitas
             ], 200);
         } else {
             return response()->json([

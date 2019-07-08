@@ -14,29 +14,29 @@ class LocationController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
     }
 
     public function getLocation()
     {
-        $loc = DB::table('loc_mstr')
+        $getloc = DB::table('loc_mstr')
             ->where('loc_active', 'Y')
             ->get();
-        $bk = DB::table('bk_mstr')
+        $getbk = DB::table('bk_mstr')
             ->where('bk_active', 'Y')
             ->get();
 
-        if ($loc && $bk) {
+        if ($getloc && $getbk) {
             return response()->json([
                 'success' => true,
-                'message' => 'Suskses menampilkan data',
-                'loc' => $loc,
-                'bk' => $bk
+                'message' => 'loc dan bk berhasil ditampilkan',
+                'loc' => $getloc,
+                'bk' => $getbk
             ], 200);
         } else {
             return response()->json([
                 'success' => false,
-                'message' => 'Gagal menampilkan data',
+                'message' => 'loc dan bk gagal ditampilkan',
                 'loc' => '',
                 'bk' => ''
             ], 404);
