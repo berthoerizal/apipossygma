@@ -24,4 +24,9 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
     $router->patch('/users/{userid}', 'UsersController@updateUser');
     $router->get('/location', 'LocationController@getLocation');
     $router->get('/produk', 'ProdukController@getProduk');
+    $router->get('/konfigurasi', 'KonfigurasiController@getKonfigurasi');
+    $router->post('/konfigurasi', 'KonfigurasiController@insertKonfigurasi');
+    $router->delete('/konfigurasi/{id}', 'KonfigurasiController@deleteKonfigurasi');
+    $router->patch('/konfigurasi/{id}', 'KonfigurasiController@updateKonfigurasi');
+
 });
