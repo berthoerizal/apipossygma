@@ -17,7 +17,7 @@ class UsersController extends Controller
      */
     public function __construct()
     {
-        //
+        $this->middleware('auth',  ['except' => ['login']]);
     }
 
     public function store(Request $request)
@@ -65,6 +65,46 @@ class UsersController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'User delete fail',
+                'data' => ''
+            ], 400);
+        }
+    }
+
+    public function updateUser($userid)
+    {
+        $users = DB::table('tconfuser')->where('userid', $userid)->first();
+        $update = DB::table('users')->where('userid', $userid)->update([
+                'userid' => $userid,
+                'name' =>  $users->usernama,
+                'email' => $users->usernama,
+                'password' => Hash::make($users->password),
+                'admin' => $users->en_id,
+                'userid' => $users->userid,
+                'ptnr_id' => $users->user_ptnr_id,
+                'username' => $users->usernama
+            ]);
+
+        // $updated = DB::table('users')->update([
+        //         'userid' => $userid,
+        //         'name' =>  $users->usernama,
+        //         'email' => $users->usernama,
+        //         'password' => Hash::make($users->password),
+        //         'admin' => $users->en_id,
+        //         'userid' => $users->userid,
+        //         'ptnr_id' => $users->user_ptnr_id,
+        //         'username' => $users->usernama
+        // ])->where('userid', $userid);
+
+        if ($updated) {
+            return response()->json([
+                'success' => true,
+                'message' => 'User update success',
+                'data' => $updated
+            ], 201);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'User update fail',
                 'data' => ''
             ], 400);
         }
