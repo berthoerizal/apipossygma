@@ -17,6 +17,7 @@ $router->get('/', function () use ($router) {
 
 $router->group(['prefix' => 'v1'], function () use ($router) {
     $router->get('/tconfuser', 'TconfusersController@getTconfuser');
+    $router->get('/users', 'UsersController@getUsers');
     $router->post('/users', 'UsersController@store');
     $router->post('/login', 'UsersController@login');
     $router->get('/entitas', 'EntitasController@entitas');
@@ -32,5 +33,9 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
     $router->post('/outlet', 'OutletController@addOutlet');
     $router->delete('/outlet/{id}', 'OutletController@deleteOutlet');
     $router->patch('/outlet/{id}', 'OutletController@updateOutlet');
+<<<<<<< HEAD
     $router->post('/image/{pt_id}', 'ImageController@updateImage');
+=======
+    $router->patch('/image/{pt_id}', 'ImageController@updateImage');
+>>>>>>> edit_image
 });

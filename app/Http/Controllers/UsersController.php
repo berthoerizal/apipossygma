@@ -20,6 +20,25 @@ class UsersController extends Controller
         // $this->middleware('auth',  ['except' => ['login']]);
     }
 
+    public function getUsers(Request $request)
+    {
+        $getuser = DB::table('users')->get();
+
+        if ($getuser) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Select users success!',
+                'data' => $getuser
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Fail',
+                'data' => ''
+            ], 404);
+        }
+    }
+
     public function store(Request $request)
     {
 
