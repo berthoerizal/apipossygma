@@ -35,7 +35,6 @@ class UsersController extends Controller
             'username' => $users->usernama
         ]);
 
-
         if ($add) {
             return response()->json([
                 'success' => true,
@@ -65,6 +64,35 @@ class UsersController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'User delete fail',
+                'data' => ''
+            ], 400);
+        }
+    }
+
+    public function updateUser($userid)
+    {
+        $users = DB::table('tconfuser')->where('userid', $userid)->first();
+        $updated = DB::table('users')->where('userid', $userid)->update([
+                'userid' => $userid,
+                'name' =>  $users->usernama,
+                'email' => $users->usernama,
+                'password' => Hash::make($users->password),
+                'admin' => $users->en_id,
+                'userid' => $users->userid,
+                'ptnr_id' => $users->user_ptnr_id,
+                'username' => $users->usernama
+            ]);
+
+        if ($updated) {
+            return response()->json([
+                'success' => true,
+                'message' => 'User update success',
+                'data' => $updated
+            ], 201);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'User update fail',
                 'data' => ''
             ], 400);
         }
