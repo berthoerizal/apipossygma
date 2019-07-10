@@ -33,9 +33,9 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
     $router->post('/outlet', 'OutletController@addOutlet');
     $router->delete('/outlet/{id}', 'OutletController@deleteOutlet');
     $router->patch('/outlet/{id}', 'OutletController@updateOutlet');
-<<<<<<< HEAD
     $router->post('/image/{pt_id}', 'ImageController@updateImage');
-=======
-    $router->patch('/image/{pt_id}', 'ImageController@updateImage');
->>>>>>> edit_image
+    $router->get('/shift', 'ShiftController@getShift');
+    $router->post('/shift', 'ShiftController@addShift');
+    $router->delete('/shift/{id}', 'ShiftController@deleteShift');
+    $router->patch('/shift/{id}', 'ShiftController@updateShift');
 });
