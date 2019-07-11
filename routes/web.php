@@ -38,4 +38,8 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
     $router->post('/voucher', 'VoucherController@store');
     $router->patch('/voucher/{id}', 'VoucherController@update');
     $router->delete('/voucher/{id}', 'VoucherController@destroy');
+    $router->get('/shift', 'ShiftController@getShift');
+    $router->post('/shift', 'ShiftController@addShift');
+    $router->delete('/shift/{id}', 'ShiftController@deleteShift');
+    $router->patch('/shift/{id}', 'ShiftController@updateShift');
 });

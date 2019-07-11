@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\DB;
 
 class KonfigurasiController extends Controller
@@ -71,13 +70,13 @@ class KonfigurasiController extends Controller
         if ($deleted) {
             return response()->json([
                 'success' => true,
-                'message' => 'Konfigurasi delete success',
+                'message' => 'Konfigurasi berhasil dihapus',
                 'data' => $deleted
             ], 201);
         } else {
             return response()->json([
                 'success' => false,
-                'message' => 'User delete fail',
+                'message' => 'Konfigurasi gagal dihapus',
                 'data' => ''
             ], 400);
         }
@@ -90,11 +89,11 @@ class KonfigurasiController extends Controller
         $remark = $request->json()->get('remark');
 
         $updatekonf = DB::table('pos_konf')->where('id', $id)->update([
-            
-                'var' => $var,
-                'value' => $value,
-                'remark' => $remark
-            
+
+            'var' => $var,
+            'value' => $value,
+            'remark' => $remark
+
         ]);
 
         if ($updatekonf) {
