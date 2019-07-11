@@ -106,6 +106,24 @@ class TransaksiController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Data Voucher berhasil di simpan'
-            ]);
+        ]);
+    }
+
+    public function batalTransaksi(Request $request, $id)
+    {
+        $pembatalan = DB::table('pos_transaksi')->where('id', $id)->update(['status' => 'batal']);
+        if ($pembatalan) {
+            return response()->json([
+                'success' => true,
+                'message' => 'data transaksi berhasil dibatalkan',
+                'data' => $pembatalan
+            ], 201);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'data transaksi gagal dibatalkan',
+                'data' => ''
+            ], 400);
+        }
     }
 }
