@@ -162,4 +162,29 @@ class ShiftController extends Controller
             ]);
         }
     }
+
+    public function openShift(Request $request, $id)
+    {
+        $modal_awal = $request->json()->get('modal_awal');
+        $status = "Proses";
+
+        $openshift = DB::table('pos_shift')->where('id', $id)->update([
+            'status' => $status,
+            'modal_awal' => $modal_awal,
+        ]);
+
+        if ($openshift) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Open Shift berhasil dilakukan',
+                'data' => $openshift
+            ], 201);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'Open Shift gagal dilakukan',
+                'data' => ''
+            ], 400);
+        }
+    }
 }
