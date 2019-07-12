@@ -27,13 +27,13 @@ class UsersController extends Controller
         if ($getuser) {
             return response()->json([
                 'success' => true,
-                'message' => 'Select users success!',
+                'message' => 'data users berhasil ditampilkan',
                 'data' => $getuser
             ], 200);
         } else {
             return response()->json([
                 'success' => false,
-                'message' => 'Fail',
+                'message' => 'data users gagal ditampilkan',
                 'data' => ''
             ], 404);
         }
@@ -57,13 +57,13 @@ class UsersController extends Controller
         if ($add) {
             return response()->json([
                 'success' => true,
-                'message' => 'User add success',
+                'message' => 'data users berhasil ditambahkan',
                 'data' => $add
             ], 201);
         } else {
             return response()->json([
                 'success' => false,
-                'message' => 'User add fail',
+                'message' => 'data users gagal ditambahkan',
                 'data' => ''
             ], 400);
         }
@@ -76,13 +76,13 @@ class UsersController extends Controller
         if ($deleted) {
             return response()->json([
                 'success' => true,
-                'message' => 'User delete success',
+                'message' => 'data users berhasil dihapus',
                 'data' => $deleted
             ], 201);
         } else {
             return response()->json([
                 'success' => false,
-                'message' => 'User delete fail',
+                'message' => 'data users gagal dihapus',
                 'data' => ''
             ], 400);
         }
@@ -105,13 +105,13 @@ class UsersController extends Controller
         if ($updated) {
             return response()->json([
                 'success' => true,
-                'message' => 'User update success',
+                'message' => 'data users berhasil diubah',
                 'data' => $updated
             ], 201);
         } else {
             return response()->json([
                 'success' => false,
-                'message' => 'User update fail',
+                'message' => 'data users gagal diubah',
                 'data' => ''
             ], 400);
         }
@@ -148,7 +148,7 @@ class UsersController extends Controller
 
                 return response()->json([
                     'success' => true,
-                    'message' => 'Login Success',
+                    'message' => 'Login Berhasil',
                     'date' => [
                         'user' => $user,
                         'api_token' => $apiToken
@@ -157,7 +157,7 @@ class UsersController extends Controller
             } else {
                 return response()->json([
                     'success' => false,
-                    'message' => 'Login Fail',
+                    'message' => 'Login Gagal',
                     'date' => ''
                 ], 400);
             }

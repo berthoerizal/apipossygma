@@ -24,19 +24,19 @@ class KonfigurasiController extends Controller
         if ($konf) {
             return response()->json([
                 'success' => true,
-                'message' => 'Select Entitas success!',
+                'message' => 'data konfigurasi berhasil ditampilkan',
                 'data' => $konf
             ], 200);
         } else {
             return response()->json([
                 'success' => false,
-                'message' => 'Fail',
+                'message' => 'data konfigurasi gagal ditampilkan',
                 'data' => ''
             ], 404);
         }
     }
 
-    public function insertKonfigurasi(Request $request)
+    public function addKonfigurasi(Request $request)
     {
         $var = $request->json()->get('var');
         $value = $request->json()->get('value');
@@ -51,13 +51,13 @@ class KonfigurasiController extends Controller
         if ($addkonf) {
             return response()->json([
                 'success' => true,
-                'message' => 'Select konfigurasi success!',
+                'message' => 'data konfigurasi berhasil ditambahkan',
                 'data' => $addkonf
             ], 200);
         } else {
             return response()->json([
                 'success' => false,
-                'message' => 'Fail',
+                'message' => 'data konfigurasi gagal ditambahkan',
                 'data' => ''
             ], 404);
         }
@@ -70,13 +70,13 @@ class KonfigurasiController extends Controller
         if ($deleted) {
             return response()->json([
                 'success' => true,
-                'message' => 'Konfigurasi berhasil dihapus',
+                'message' => 'data konfigurasi berhasil dihapus',
                 'data' => $deleted
             ], 201);
         } else {
             return response()->json([
                 'success' => false,
-                'message' => 'Konfigurasi gagal dihapus',
+                'message' => 'data konfigurasi gagal dihapus',
                 'data' => ''
             ], 400);
         }
@@ -99,13 +99,13 @@ class KonfigurasiController extends Controller
         if ($updatekonf) {
             return response()->json([
                 'success' => true,
-                'message' => 'Select konfigurasi success!',
+                'message' => 'data konfigurasi berhasil diubah',
                 'data' => $updatekonf
             ], 200);
         } else {
             return response()->json([
                 'success' => false,
-                'message' => 'Fail',
+                'message' => 'data konfigurasi gagal diubah',
                 'data' => ''
             ], 404);
         }

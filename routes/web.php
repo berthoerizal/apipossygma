@@ -20,13 +20,13 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
     $router->get('/users', 'UsersController@getUsers');
     $router->post('/users', 'UsersController@store');
     $router->post('/login', 'UsersController@login');
-    $router->get('/entitas', 'EntitasController@entitas');
+    $router->get('/entitas', 'EntitasController@getEntitas');
     $router->delete('/users/{id}', 'UsersController@destroy');
     $router->patch('/users/{userid}', 'UsersController@updateUser');
     $router->get('/location', 'LocationController@getLocation');
     $router->get('/produk', 'ProdukController@getProduk');
     $router->get('/konfigurasi', 'KonfigurasiController@getKonfigurasi');
-    $router->post('/konfigurasi', 'KonfigurasiController@insertKonfigurasi');
+    $router->post('/konfigurasi', 'KonfigurasiController@addKonfigurasi');
     $router->delete('/konfigurasi/{id}', 'KonfigurasiController@deleteKonfigurasi');
     $router->patch('/konfigurasi/{id}', 'KonfigurasiController@updateKonfigurasi');
     $router->get('/outlet', 'OutletController@getOutlet');
@@ -34,6 +34,10 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
     $router->delete('/outlet/{id}', 'OutletController@deleteOutlet');
     $router->patch('/outlet/{id}', 'OutletController@updateOutlet');
     $router->post('/image/{pt_id}', 'ImageController@updateImage');
+    $router->get('/voucher/{id}', 'VoucherController@detail');
+    $router->post('/voucher', 'VoucherController@store');
+    $router->patch('/voucher/{id}', 'VoucherController@update');
+    $router->delete('/voucher/{id}', 'VoucherController@destroy');
     $router->get('/shift', 'ShiftController@getShift');
     $router->post('/shift', 'ShiftController@addShift');
     $router->delete('/shift/{id}', 'ShiftController@deleteShift');
@@ -41,4 +45,6 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
     $router->patch('/shift/open/{id}', 'ShiftController@openShift');
     $router->patch('/shift/close/{user_id}', 'ShiftController@closeShift');
     $router->post('/transaksi', 'TransaksiController@addTransaksi');
+    $router->post('/transaksi', 'TransaksiController@addTransaksi');
+    $router->patch('/transaksi/{id}', 'TransaksiController@batalTransaksi');
 });

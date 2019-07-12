@@ -18,20 +18,20 @@ class EntitasController extends Controller
         // $this->middleware('auth');
     }
 
-    public function entitas()
+    public function getEntitas()
     {
         $getentitas = DB::table('en_mstr')->get();
 
         if ($getentitas) {
             return response()->json([
                 'success' => true,
-                'message' => 'Select Entitas success!',
+                'message' => 'data entitas berhasil ditampilkan',
                 'data' => $getentitas
             ], 200);
         } else {
             return response()->json([
                 'success' => false,
-                'message' => 'Fail',
+                'message' => 'data konfigurasi gagal ditampilkan',
                 'data' => ''
             ], 404);
         }

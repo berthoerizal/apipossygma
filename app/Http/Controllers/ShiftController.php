@@ -187,4 +187,43 @@ class ShiftController extends Controller
             ], 400);
         }
     }
+
+    public function closeShift(Request $request)
+    {
+        $id = $request->json()->get('id');
+        $users = DB::table('users')->where('id', $id)->first();
+        $shift = DB::table('pos_shift')->where('user_id', $users->id)->where('waktu', date('Y-m-d'))->first();
+        $nominal = $request->json()->get('nominal');
+        $jml = $request->json()->get('jml');
+
+        for ($i = 0; $i < count($nominal); $i++) {
+            $data_shift['nominal'] = $nominal[$i];
+            $data_shift['jml'] = $jml[$i];
+            $data_shift['shift_id'] = $shift->id;
+            $detail_shift = DB::table('pos_detail_shift')->insert([
+                // 'id' => $id,
+                'shift_id' => $data_shift['shift_id'],
+                'nominal' => $data_shift['nominal'],
+                'jml' => $data_shift['jml']
+            ]);
+        }
+
+        $updateshift = DB::table('pos_shift')->where('user_id', $users->id)->update([
+            'status' => "Selesai",
+        ]);
+
+        if ($updateshift) {
+            return response()->json([
+                'success' => true,
+                'message' => 'data shift berhasil diubah',
+                'data' => $updateshift
+            ], 201);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'data shift gagal diubah',
+                'data' => ''
+            ], 400);
+        }
+    }
 }
