@@ -126,4 +126,46 @@ class TransaksiController extends Controller
             ], 400);
         }
     }
+
+    public function getTransaksi(Request $request)
+    {
+        $gettransaksi = DB::table('pos_transaksi')->where('status', 'batal')->get();
+
+        if ($gettransaksi) {
+            return response()->json([
+                'success' => true,
+                'message' => 'data transaksi berhasil ditampilkan',
+                'data' => $gettransaksi
+            ], 201);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'data transaksi gagal ditampilkan',
+                'data' => ''
+            ], 400);
+        }
+    }
+
+    public function getTransaksiDetail(Request $request, $id)
+    {
+        // $gettransaksi = DB::table('pos_transaksi')->get();
+        // $getdetail = DB::table('pos_detail_transaksi')->get();
+        $getdetail = DB::table('pos_transaksi')
+            ->leftJoin('pos_detail_transaksi', 'pos_transaksi.id', '=', 'pos_detail_transaksi.transaksi_id')
+            ->where('pos_transaksi.id', "=", $id)->get();
+
+        if ($getdetail) {
+            return response()->json([
+                'success' => true,
+                'message' => 'data transaksi berhasil ditampilkan',
+                'data' => $getdetail
+            ], 201);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'data transaksi gagal ditampilkan',
+                'data' => ''
+            ], 400);
+        }
+    }
 }
