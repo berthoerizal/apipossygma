@@ -43,8 +43,9 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
     $router->delete('/shift/{id}', 'ShiftController@deleteShift');
     $router->patch('/shift/{id}', 'ShiftController@updateShift');
     $router->patch('/shift/open/{id}', 'ShiftController@openShift');
-    $router->patch('/shift/close/{user_id}', 'ShiftController@closeShift');
-    $router->post('/transaksi', 'TransaksiController@addTransaksi');
+    $router->patch('/shift', 'ShiftController@closeShift');
     $router->post('/transaksi', 'TransaksiController@addTransaksi');
     $router->patch('/transaksi/{id}', 'TransaksiController@batalTransaksi');
+    $router->get('/transaksi', 'TransaksiController@getTransaksi');
+    $router->get('/export-excel', 'TransaksiController@exportExcel');
 });

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\TransaksiExport;
 
 class TransaksiController extends Controller
 {
@@ -26,8 +28,8 @@ class TransaksiController extends Controller
             $users = DB::table('users')->where('id', $id)->first();
             $voucher_detail_tbl = DB::table('pos_voucher_detail')->where('voucher_id', $voucher_id)->first();
             $shift = DB::table('pos_shift')->where('user_id', $users->id)
-            ->where('waktu',date('Y-m-d'))
-            ->whereIN('status',['Mulai','Proses'])->first();
+                ->where('waktu', date('Y-m-d'))
+                ->whereIN('status', ['Mulai', 'Proses'])->first();
             // $en_id = DB::table('pos_konf')
             // ->where('var','en_id')
             // ->first();
@@ -40,12 +42,12 @@ class TransaksiController extends Controller
                 $transaksi['voucher_id'] = $voucher_detail_tbl->voucher_id;
                 $transaksi['kode_voucher'] = $voucher_detail_tbl->kode_voucher;
                 $voucher_detail = DB::table('pos_voucher_detail')->where('id', $voucher_detail_tbl->voucher_id)
-                                ->update(['status' => '1']);
+                    ->update(['status' => '1']);
             } else {
                 $transaksi['diskon'] = $request->json()->get('diskon');
             }
             $transaksi['user_id'] = $users->id; //mengambil user id dari kasir
-            $transaksi['meja_id'] = $request->json()->get('id_meja'); 
+            $transaksi['meja_id'] = $request->json()->get('id_meja');
             $transaksi['invoice'] = date('ymdhis');
             $transaksi['shift_id'] = $shift->id;
             $transaksi['nama_pelanggan'] = $request->json()->get('nama_pelanggan');
@@ -65,7 +67,7 @@ class TransaksiController extends Controller
             $nama_barang = $request->json()->get('nama_barang');
             $harga_barang = $request->json()->get('harga_barang');
             $qty = $request->json()->get('qty');
-            
+
             $data = DB::table('pos_transaksi')->insertGetId([
                 'invoice' => $transaksi['invoice'],
                 'user_id' => $transaksi['user_id'],
@@ -78,11 +80,11 @@ class TransaksiController extends Controller
                 'voucher_id' => $transaksi['voucher_id'],
                 'kode_voucher' => $transaksi['kode_voucher']
             ]);
-            $sisa = 0; 
+            $sisa = 0;
             $_SESSION['id'] = $data;
-            for ($i=0; $i < count($kode_barang); $i++) { 
+            for ($i = 0; $i < count($kode_barang); $i++) {
                 $produk = DB::table('pt_mstr')->where('pt_code', $kode_barang[$i])->first();
-                $detail_transaksi['transaksi_id'] = $data;// mengambil id dari transaksi atas
+                $detail_transaksi['transaksi_id'] = $data; // mengambil id dari transaksi atas
                 $detail_transaksi['barang_id'] = $produk->pt_id;
                 $detail_transaksi['kode_barang'] = $kode_barang[$i];
                 $detail_transaksi['nama_barang'] = $nama_barang[$i];
@@ -125,5 +127,23 @@ class TransaksiController extends Controller
                 'data' => ''
             ], 400);
         }
+    }
+
+    public function getTransaksi(Request $request)
+    {
+        $tanggal_mulai = $request->json()->get('tanggal_mulai');
+        $tanggal_selesai = $request->json()->get('tanggal_selesai');
+
+        $gettransaksi = DB::table('pos_transaksi')->whereBetween('tanggal_transaksi', [$tanggal_mulai, $tanggal_selesai])->get();
+        return view('transaksi', compact('gettransaksi'));
+    }
+
+    public function exportExcel(Request $request)
+    {
+        $tanggal_mulai = $request->json()->get('tanggal_mulai');
+        $tanggal_selesai = $request->json()->get('tanggal_selesai');
+
+        $nama_file = 'laporan_transaksi_' . date("Y-m-d H-i-s") . ".xlsx";
+        return Excel::download(new TransaksiExport, $nama_file);
     }
 }
