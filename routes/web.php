@@ -34,7 +34,8 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
     $router->delete('/outlet/{id}', 'OutletController@deleteOutlet');
     $router->patch('/outlet/{id}', 'OutletController@updateOutlet');
     $router->post('/image/{pt_id}', 'ImageController@updateImage');
-    $router->get('/voucher/{id}', 'VoucherController@detail');
+    $router->get('/voucher/{id}', 'VoucherController@detailVoucher');
+    $router->get('/voucher', 'VoucherController@getVoucher');
     $router->post('/voucher', 'VoucherController@store');
     $router->patch('/voucher/{id}', 'VoucherController@update');
     $router->delete('/voucher/{id}', 'VoucherController@destroy');

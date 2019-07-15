@@ -47,6 +47,7 @@ class TransaksiController extends Controller
             $transaksi['user_id'] = $users->id; //mengambil user id dari kasir
             $transaksi['meja_id'] = $request->json()->get('id_meja'); 
             $transaksi['invoice'] = date('ymdhis');
+            $transaksi['bayar'] = $request->json()->get('bayar');
             $transaksi['shift_id'] = $shift->id;
             $transaksi['nama_pelanggan'] = $request->json()->get('nama_pelanggan');
             $transaksi['tanggal_transaksi'] = date('d-M-y');
@@ -71,6 +72,7 @@ class TransaksiController extends Controller
                 'user_id' => $transaksi['user_id'],
                 'meja_id' => $transaksi['meja_id'],
                 'nama_pelanggan' => $transaksi['nama_pelanggan'],
+                'bayar' => $transaksi['bayar'],
                 'shift_id' => $transaksi['shift_id'],
                 'tanggal_transaksi' => $transaksi['tanggal_transaksi'],
                 'pricelist_id' => $transaksi['pricelist_id'],

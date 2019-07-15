@@ -71,19 +71,38 @@ class VoucherController extends Controller
         
     }
     
-    public function detail($id)
+    public function detailVoucher($id)
     {
-        $voucher = DB::table('pos_voucher_detail')->where('voucher_id',$id)->get();
-        if ($voucher) {
+        $detailvoucher = DB::table('pos_voucher_detail')->where('voucher_id',$id)->get();
+        if ($detailvoucher) {
             return response()->json([
                 'success' => true,
                 'message' => 'voucher detail berhasil ditampilkan',
-                'data' => $voucher
+                'data' => $detailvoucher
             ], 200);
         } else {
             return response()->json([
                 'success' => false,
                 'message' => 'voucher detail gagal ditampilkan',
+                'data' => ''
+            ], 404);
+        }
+    }
+
+    public function getVoucher()
+    {
+        $getvoucher = DB::table('users')->get();
+
+        if ($getvoucher) {
+            return response()->json([
+                'success' => true,
+                'message' => 'data voucher berhasil ditampilkan',
+                'data' => $getvoucher
+            ], 200);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'data voucher gagal ditampilkan',
                 'data' => ''
             ], 404);
         }
