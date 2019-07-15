@@ -45,6 +45,8 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
     $router->patch('/shift/open/{id}', 'ShiftController@openShift');
     $router->patch('/shift', 'ShiftController@closeShift');
     $router->post('/transaksi', 'TransaksiController@addTransaksi');
+    $router->get('/transaksi', 'TransaksiController@getTransaksi');
+    $router->get('/transaksi/{id}', 'TransaksiController@getTransaksiDetail');
     $router->patch('/transaksi/{id}', 'TransaksiController@batalTransaksi');
     $router->get('/transaksi', 'TransaksiController@getTransaksi');
     $router->get('/export-excel', 'TransaksiController@exportExcel');

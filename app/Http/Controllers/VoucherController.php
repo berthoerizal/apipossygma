@@ -91,6 +91,7 @@ class VoucherController extends Controller
 
     public function update(Request $request, $id)
     {
+        
         $kode_utama_voucher = $request->json()->get('kode_utama_voucher');
         $nama_voucher = $request->json()->get('nama_voucher');
         $tanggal_mulai = $request->json()->get('tanggal_mulai');
@@ -100,22 +101,28 @@ class VoucherController extends Controller
         $nominal_voucher = $request->json()->get('nominal_voucher');
 
         $voucher = DB::table('pos_voucher')->where('id', $id)->update([
-            'kode_utama_voucher' => $kode_utama_voucher,
+            // 'kode_utama_voucher' => $kode_utama_voucher,
             'nama_voucher' => $nama_voucher,
             'tanggal_mulai' => $tanggal_mulai,
             'tanggal_akhir' => $tanggal_akhir,
-            'jumlah' => $jumlah,
+            // 'jumlah' => $jumlah,
             'keterangan' => $keterangan,
             'nominal_voucher' => $nominal_voucher
         ]);
-        
 
+        $update_detail = DB::table('pos_voucher')->where('id', $id)->first();
+        
+        $updated = DB::table('pos_voucher_detail')->where('voucher_id', $id)->update([
+            // 'voucher_id' =>  $update_detail->id,
+            // 'kode_voucher' => $update_detail->kode_utama_voucher .$code,
+            'nominal' => $update_detail->nominal_voucher
+        ]);
         // return $voucher;
-        if ($voucher) {
+        if ($updated) {
             return response()->json([
                 'success' => true,
                 'message' => 'data voucher berhasil diubah',
-                'data' => $voucher
+                'data' => $updated
             ], 200);
         } else {
             return response()->json([
@@ -130,12 +137,13 @@ class VoucherController extends Controller
     {
         
         $deleted = DB::table('pos_voucher')->where('id', $id)->delete();
+        $delete = DB::table('pos_voucher_detail')->where('voucher_id', $id)->delete();
 
-        if ($deleted) {
+        if ($delete) {
             return response()->json([
                 'success' => true,
                 'message' => 'data voucher berhasil dihapus',
-                'data' => $deleted
+                'data' => $delete
             ], 201);
         } else {
             return response()->json([
