@@ -50,4 +50,5 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
     $router->patch('/transaksi/{id}', 'TransaksiController@batalTransaksi');
     $router->get('/transaksi', 'TransaksiController@getTransaksi');
     $router->get('/export-excel', 'TransaksiController@exportExcel');
+    $router->get('/cari-transaksi', 'TransaksiController@searchTransaksi');
 });

@@ -146,4 +146,31 @@ class TransaksiController extends Controller
         $nama_file = 'laporan_transaksi_' . date("Y-m-d H-i-s") . ".xlsx";
         return Excel::download(new TransaksiExport, $nama_file);
     }
+
+    public function searchTransaksi(Request $request)
+    {
+        $keyword = $request->json()->get('keyword');
+
+        $getdata = DB::table('pos_transaksi')
+            ->where('nama_pelanggan', 'like', "%{$keyword}%")
+            ->orWhere('meja_id', 'like', "%{$keyword}%")
+            ->orWhere('status', 'like', "%{$keyword}%")
+            ->orWhere('tanggal_transaksi', 'like', "%{$keyword}%")
+            ->orWhere('invoice', 'like', "%{$keyword}%")
+            ->get();
+
+        if ($getdata) {
+            return response()->json([
+                'success' => true,
+                'message' => "Data Transaksi berhasil ditampilkan",
+                'data' => $getdata
+            ], 201);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => "Data Transaksi gagal ditampilkan",
+                'data' => ''
+            ], 400);
+        }
+    }
 }
