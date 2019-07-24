@@ -43,19 +43,21 @@ class UsersController extends Controller
         }
     }
 
-    public function store(Request $request)
+    public function addUser(Request $request)
     {
-
         $userid = $request->json()->get('userid');
+        $outlet_id = $request->json()->get('outlet_id');
         $users = DB::table('tconfuser')->where('userid', $userid)->first();
-        $add = User::create([
+
+        $add = DB::table('users')->insert([
             'name' =>  $users->usernama,
             'email' => $users->usernama,
             'password' => Hash::make($users->password),
             'admin' => $users->en_id,
             'userid' => $users->userid,
             'ptnr_id' => $users->user_ptnr_id,
-            'username' => $users->usernama
+            'outlet_id' => $outlet_id,
+            'username' => $users->usernama,
         ]);
 
         if ($add) {
@@ -73,7 +75,7 @@ class UsersController extends Controller
         }
     }
 
-    public function destroy($id)
+    public function deleteUser($id)
     {
         $deleted = DB::table('users')->where('id', $id)->delete();
 
@@ -92,8 +94,9 @@ class UsersController extends Controller
         }
     }
 
-    public function updateUser($userid)
+    public function updateUser(Request $request, $userid)
     {
+        $outlet_id = $request->json()->get('outlet_id');
         $users = DB::table('tconfuser')->where('userid', $userid)->first();
         $updated = DB::table('users')->where('userid', $userid)->update([
             'userid' => $userid,
@@ -103,6 +106,7 @@ class UsersController extends Controller
             'admin' => $users->en_id,
             'userid' => $users->userid,
             'ptnr_id' => $users->user_ptnr_id,
+            'outlet_id' => $outlet_id,
             'username' => $users->usernama
         ]);
 

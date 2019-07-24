@@ -18,10 +18,10 @@ $router->get('/', function () use ($router) {
 $router->group(['prefix' => 'v1'], function () use ($router) {
     $router->get('/tconfuser', 'TconfusersController@getTconfuser');
     $router->get('/users', 'UsersController@getUsers');
-    $router->post('/users', 'UsersController@store');
+    $router->post('/users', 'UsersController@addUser');
     $router->post('/login', 'UsersController@login');
     $router->get('/entitas', 'EntitasController@getEntitas');
-    $router->delete('/users/{id}', 'UsersController@destroy');
+    $router->delete('/users/{id}', 'UsersController@deleteUser');
     $router->patch('/users/{userid}', 'UsersController@updateUser');
     $router->get('/location', 'LocationController@getLocation');
     $router->get('/produk', 'ProdukController@getProduk');
