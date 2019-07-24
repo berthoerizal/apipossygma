@@ -22,7 +22,11 @@ class UsersController extends Controller
 
     public function getUsers(Request $request)
     {
-        $getuser = DB::table('users')->get();
+        $getuser = DB::table('users')
+            ->leftJoin('pos_outlet', 'users.outlet_id', '=', 'pos_outlet.id')
+            ->leftJoin('en_mstr', 'pos_outlet.entitas_id', '=', 'en_mstr.en_id')
+            ->select('users.*', 'pos_outlet.nama_outlet', 'en_mstr.en_desc')
+            ->get();
 
         if ($getuser) {
             return response()->json([
@@ -92,15 +96,15 @@ class UsersController extends Controller
     {
         $users = DB::table('tconfuser')->where('userid', $userid)->first();
         $updated = DB::table('users')->where('userid', $userid)->update([
-                'userid' => $userid,
-                'name' =>  $users->usernama,
-                'email' => $users->usernama,
-                'password' => Hash::make($users->password),
-                'admin' => $users->en_id,
-                'userid' => $users->userid,
-                'ptnr_id' => $users->user_ptnr_id,
-                'username' => $users->usernama
-            ]);
+            'userid' => $userid,
+            'name' =>  $users->usernama,
+            'email' => $users->usernama,
+            'password' => Hash::make($users->password),
+            'admin' => $users->en_id,
+            'userid' => $users->userid,
+            'ptnr_id' => $users->user_ptnr_id,
+            'username' => $users->usernama
+        ]);
 
         if ($updated) {
             return response()->json([
