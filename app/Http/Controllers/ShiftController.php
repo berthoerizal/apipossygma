@@ -19,7 +19,10 @@ class ShiftController extends Controller
 
     public function getShift()
     {
-        $getshift = DB::table('pi_mstr')->get();
+        $getshift = DB::table('pos_shift')
+            ->leftJoin('users', 'pos_shift.user_id', '=', 'users.userid')
+            ->select('pos_shift.*', 'users.username')
+            ->get();
 
         if ($getshift) {
             return response()->json([
@@ -41,10 +44,11 @@ class ShiftController extends Controller
         $user_id = $request->json()->get('user_id');
         $kode_shift = $request->json()->get('kode_shift');
         $status = "Mulai";
-        $modal_awal = $request->json()->get('modal_awal');
-        $print = $request->json()->get('print');
+        $modal_awal = 0;
+        $print = NULL;
         $waktu = $request->json()->get('waktu');
         $waktu_akhir = $request->json()->get('waktu_akhir');
+
 
         try {
             DB::beginTransaction();
@@ -113,53 +117,28 @@ class ShiftController extends Controller
     {
         $user_id = $request->json()->get('user_id');
         $kode_shift = $request->json()->get('kode_shift');
-        $status = "Mulai";
-        $modal_awal = $request->json()->get('modal_awal');
-        $print = $request->json()->get('print');
+        $status = $request->json()->get('status');
         $waktu = $request->json()->get('waktu');
-        $waktu_akhir = $request->json()->get('waktu_akhir');
 
-        try {
-            DB::beginTransaction();
-            $data_shift = $request->all();
-            $tanggal = date('Y-M-d', strtotime($waktu));
-            $tanggal_akhir = isset($waktu_akhir) ? date('Y-M-d', strtotime('+1 days', strtotime($waktu_akhir))) : date('Y-M-d', strtotime('+1 days', strtotime($waktu)));
-            $data_ada = false;
-            $i = 1;
-            $sisa = strtotime($tanggal_akhir) - strtotime($tanggal);
-            $sisa = floor($sisa / (60 * 60 * 24));
-            while (($i <= $sisa) and ($data_ada <> true)) {
-                DB::table('pos_shift')->where('id', $id)->update([
-                    'user_id' => $user_id,
-                    'kode_shift' => $kode_shift,
-                    'waktu' => $tanggal,
-                    'status' => $status,
-                    'modal_awal' => $modal_awal,
-                    'print' => $print
-                ]);
+        $updateshift = DB::table('pos_shift')->where('id', $id)->update([
+            'user_id' => $user_id,
+            'kode_shift' => $kode_shift,
+            'waktu' => $waktu,
+            'status' => $status,
+        ]);
 
-                $tanggal = date('Y-M-d', strtotime('+1 day', strtotime($tanggal)));
-                $i++;
-            }
-            if ($data_ada) {
-                DB::rollBack();
-                return response()->json([
-                    'success' => false,
-                    'message' => 'Data Shift Sudah Ada'
-                ]);
-            } else {
-                DB::commit();
-                return response()->json([
-                    'success' => true,
-                    'message' => 'Data Barang berhasil di simpan'
-                ]);
-            }
-        } catch (Exception $e) {
-            DB::rollBack();
+        if ($updateshift) {
+            return response()->json([
+                'success' => true,
+                'message' => 'Update Shift berhasil dilakukan',
+                'data' => $updateshift
+            ], 201);
+        } else {
             return response()->json([
                 'success' => false,
-                'message' => "Terjadi Keselahan Saat Menyimpan Data! " . $e
-            ]);
+                'message' => 'Update Shift gagal dilakukan',
+                'data' => ''
+            ], 400);
         }
     }
 
