@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
-class LocationController extends Controller
+class BankController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -17,28 +17,23 @@ class LocationController extends Controller
         // $this->middleware('auth');
     }
 
-    public function getLocation()
+    public function getBank()
     {
-        $getloc = DB::table('loc_mstr')
-            ->where('loc_active', 'Y')
-            ->get();
-        $getbk = DB::table('bk_mstr')
+        $getbank = DB::table('bk_mstr')
             ->where('bk_active', 'Y')
             ->get();
 
-        if ($getloc && $getbk) {
+        if ($getbank) {
             return response()->json([
                 'success' => true,
-                'message' => 'loc dan bk berhasil ditampilkan',
-                'loc' => $getloc,
-                'bk' => $getbk
+                'message' => 'Bank berhasil ditampilkan',
+                'data' => $getbank
             ], 200);
         } else {
             return response()->json([
                 'success' => false,
-                'message' => 'loc dan bk gagal ditampilkan',
-                'loc' => '',
-                'bk' => ''
+                'message' => 'Bank gagal ditampilkan',
+                'data' => ''
             ], 404);
         }
     }

@@ -21,7 +21,7 @@ class ShiftController extends Controller
     {
         $getshift = DB::table('pos_shift')
             ->leftJoin('users', 'pos_shift.user_id', '=', 'users.userid')
-            ->select('pos_shift.*', 'users.username')
+            ->select('pos_shift.*', 'users.username as nama_kasir')
             ->get();
 
         if ($getshift) {

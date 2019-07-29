@@ -25,7 +25,7 @@ class UsersController extends Controller
         $getuser = DB::table('users')
             ->leftJoin('pos_outlet', 'users.outlet_id', '=', 'pos_outlet.id')
             ->leftJoin('en_mstr', 'pos_outlet.entitas_id', '=', 'en_mstr.en_id')
-            ->select('users.*', 'pos_outlet.nama_outlet', 'en_mstr.en_desc')
+            ->select('users.*', 'pos_outlet.nama_outlet as outlet', 'en_mstr.en_desc as nama_entitas')
             ->get();
 
         if ($getuser) {

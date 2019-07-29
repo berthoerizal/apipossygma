@@ -20,12 +20,17 @@ class OutletController extends Controller
 
     public function getOutlet()
     {
-        $getoutlet = DB::table('pos_outlet')->get();
+        $getoutlet = DB::table('pos_outlet')
+            ->join('en_mstr', 'pos_outlet.entitas_id', '=', 'en_mstr.en_id')
+            ->join('loc_mstr', 'pos_outlet.loc_id', '=', 'loc_mstr.loc_id')
+            ->join('bk_mstr', 'pos_outlet.bk_id', '=', 'bk_mstr.bk_id')
+            ->select('pos_outlet.*', 'en_mstr.en_desc as nama_entitas', 'loc_mstr.loc_desc as lokasi', 'bk_mstr.bk_name as nama_bank')
+            ->get();
 
         if ($getoutlet) {
             return response()->json([
                 'success' => true,
-                'message' => 'Outlet berhasil ditampilakn',
+                'message' => 'Outlet berhasil ditampilkan',
                 'data' => $getoutlet
             ], 200);
         } else {
@@ -44,6 +49,7 @@ class OutletController extends Controller
         $alamat = $request->json()->get('alamat');
         $no_outlet = $request->json()->get('no_outlet');
         $loc_id = $request->json()->get('loc_id');
+        $bk_id = $request->json()->get('bk_id');
 
         $addoutlet = DB::table('pos_outlet')->insert([
             'entitas_id' => $entitas_id,
@@ -51,6 +57,7 @@ class OutletController extends Controller
             'alamat' => $alamat,
             'no_outlet' => $no_outlet,
             'loc_id' => $loc_id,
+            'bk_id' => $bk_id
         ]);
 
         if ($addoutlet) {
@@ -94,6 +101,7 @@ class OutletController extends Controller
         $alamat = $request->json()->get('alamat');
         $no_outlet = $request->json()->get('no_outlet');
         $loc_id = $request->json()->get('loc_id');
+        $bk_id = $request->json()->get('bk_id');
 
         $updateoutlet = DB::table('pos_outlet')->where('id', $id)->update([
             'entitas_id' => $entitas_id,
@@ -101,6 +109,7 @@ class OutletController extends Controller
             'alamat' => $alamat,
             'no_outlet' => $no_outlet,
             'loc_id' => $loc_id,
+            'bk_id' => $bk_id
         ]);
 
         if ($updateoutlet) {

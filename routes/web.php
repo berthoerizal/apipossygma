@@ -23,7 +23,8 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
     $router->get('/entitas', 'EntitasController@getEntitas');
     $router->delete('/users/{id}', 'UsersController@deleteUser');
     $router->patch('/users/{userid}', 'UsersController@updateUser');
-    $router->get('/location', 'LocationController@getLocation');
+    $router->get('/lokasi', 'LokasiController@getLokasi');
+    $router->get('/bank', 'BankController@getBank');
     $router->get('/produk', 'ProdukController@getProduk');
     $router->get('/konfigurasi', 'KonfigurasiController@getKonfigurasi');
     $router->post('/konfigurasi', 'KonfigurasiController@addKonfigurasi');
