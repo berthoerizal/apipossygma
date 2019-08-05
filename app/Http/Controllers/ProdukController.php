@@ -29,7 +29,7 @@ class ProdukController extends Controller
             ->join('pid_det', 'pi_mstr.pi_oid', '=', 'pid_det.pid_pi_oid')
             ->join('pidd_det', 'pid_det.pid_oid', '=', 'pidd_det.pidd_pid_oid')
             ->join('pt_mstr', 'pid_det.pid_pt_id', '=', 'pt_mstr.pt_id')
-            ->select('pt_mstr.pt_code as id', 'pt_mstr.pt_code as kode_barang', 'pt_mstr.pt_desc1 as nama_barang', 'pt_mstr.pt_desc2', 'pidd_det.pidd_price', 'pidd_det.pidd_payment as harga_barang', 'pidd_det.pidd_disc', 'pt_mstr.pt_gambar as gambar_barang')
+            ->select('pt_mstr.pt_id as id', 'pt_mstr.pt_code as kode_barang', 'pt_mstr.pt_desc1 as nama_barang', 'pt_mstr.pt_desc2', 'pidd_det.pidd_price', 'pidd_det.pidd_payment as harga_barang', 'pidd_det.pidd_disc', 'pt_mstr.pt_gambar as gambar_barang')
             ->whereNotNull('pidd_det.pidd_payment')
             ->where('pi_mstr.pi_so_type', 'R')
             ->where('pi_mstr.pi_active', 'Y')

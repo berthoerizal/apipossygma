@@ -2,17 +2,26 @@
 
 namespace App\Exports;
 
-use Illuminate\Contracts\View\View;
-use Maatwebsite\Excel\Concerns\FromView;
+use App\User;
+use Maatwebsite\Excel\Concerns\FromCollection;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Concerns\FromQuery;
+use Maatwebsite\Excel\Concerns\Exportable;
 
-class TransaksiExport implements FromView
+class TransaksiExport implements FromCollection
 {
-    public function view(): View
+    use Exportable;
+
+    public function tanggal($tanggal_mulai, $tanggal_selesai)
     {
-        return view(
-            'transaksi',
-            ['gettransaksi' => DB::table('pos_transaksi')->get()]
-        );
+        $this->tanggal_mulai = $tanggal_mulai;
+        $this->tanggal_selesai = $tanggal_selesai;
+
+        return $this;
+    }
+
+    public function collection()
+    {
+        return  DB::table('pos_transaksi')->whereBetween('tanggal_transaksi', [$this->tanggal_mulai, $this->tanggal_selesai])->get();
     }
 }

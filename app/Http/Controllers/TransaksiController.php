@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\TransaksiExport;
+use Maatwebsite\Excel\Facades\Excel as Excel;
 
 class TransaksiController extends Controller
 {
@@ -131,13 +131,26 @@ class TransaksiController extends Controller
         }
     }
 
-    public function getTransaksi(Request $request)
+    public function getLaporan(Request $request)
     {
         $tanggal_mulai = $request->json()->get('tanggal_mulai');
         $tanggal_selesai = $request->json()->get('tanggal_selesai');
 
         $gettransaksi = DB::table('pos_transaksi')->whereBetween('tanggal_transaksi', [$tanggal_mulai, $tanggal_selesai])->get();
-        return view('transaksi', compact('gettransaksi'));
+
+        if ($gettransaksi) {
+            return response()->json([
+                'success' => true,
+                'message' => 'data transaksi berhasil ditampilkan',
+                'data' => $gettransaksi
+            ], 201);
+        } else {
+            return response()->json([
+                'success' => false,
+                'message' => 'data transaksi gagal ditampilkan',
+                'data' => ''
+            ], 400);
+        }
     }
 
     public function exportExcel(Request $request)
@@ -145,8 +158,7 @@ class TransaksiController extends Controller
         $tanggal_mulai = $request->json()->get('tanggal_mulai');
         $tanggal_selesai = $request->json()->get('tanggal_selesai');
 
-        $nama_file = 'laporan_transaksi_' . date("Y-m-d H-i-s") . ".xlsx";
-        return Excel::download(new TransaksiExport, $nama_file);
+        return (new TransaksiExport)->tanggal($tanggal_mulai, $tanggal_selesai)->download('transaksi.xlsx');
     }
 
     public function searchTransaksi(Request $request)
