@@ -16,7 +16,7 @@ class TransaksiController extends Controller
      */
     public function __construct()
     {
-        // $this->middleware('auth',  ['except' => ['login']]);
+        $this->middleware('auth');
     }
 
     public function addTransaksi(Request $request)

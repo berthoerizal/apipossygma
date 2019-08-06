@@ -17,7 +17,7 @@ class UsersController extends Controller
      */
     public function __construct()
     {
-        // $this->middleware('auth',  ['except' => ['login']]);
+        $this->middleware('auth',  ['except' => ['login']]);
     }
 
     public function getUsers(Request $request)
@@ -125,6 +125,31 @@ class UsersController extends Controller
         }
     }
 
+    public function logout(Request $request)
+    {
+        $api_token = $request->json()->get('api_token');
+
+        $user = User::where('api_token', $api_token)->first();
+
+        if (!$user) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Login Gagal',
+                'user' => ''
+            ], 401);
+        }
+
+        $user->api_token = NULL;
+
+        $user->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Logout berhasil',
+            'user' => ''
+        ], 200);
+    }
+
     public function login(Request $request)
     {
         $username = $request->json()->get('username');
@@ -157,16 +182,13 @@ class UsersController extends Controller
                 return response()->json([
                     'success' => true,
                     'message' => 'Login Berhasil',
-                    'date' => [
-                        'user' => $user,
-                        'api_token' => $apiToken
-                    ]
+                    'user' => $user
                 ], 201);
             } else {
                 return response()->json([
                     'success' => false,
                     'message' => 'Login Gagal',
-                    'date' => ''
+                    'user' => ''
                 ], 400);
             }
         }

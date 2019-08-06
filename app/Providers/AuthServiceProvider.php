@@ -36,5 +36,11 @@ class AuthServiceProvider extends ServiceProvider
                 return User::where('api_token', $apiToken[1])->first();
             }
         });
+
+        // $this->app['auth']->viaRequest('api', function ($request) {
+        //     if ($request->input('api_token')) {
+        //         return User::where('api_token', $request->input('api_token'))->first();
+        //     }
+        // });
     }
 }

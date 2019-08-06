@@ -20,6 +20,7 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
     $router->get('/users', 'UsersController@getUsers');
     $router->post('/users', 'UsersController@addUser');
     $router->post('/login', 'UsersController@login');
+    $router->post('/logout', 'UsersController@logout');
     $router->get('/entitas', 'EntitasController@getEntitas');
     $router->delete('/users/{id}', 'UsersController@deleteUser');
     $router->patch('/users/{userid}', 'UsersController@updateUser');
@@ -54,4 +55,5 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
     $router->post('/laporan', 'TransaksiController@getLaporan');
     $router->post('/export', 'TransaksiController@exportExcel');
     $router->get('/cari-transaksi', 'TransaksiController@searchTransaksi');
+    $router->get('/home', 'HomeController@index');
 });
