@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddVotesToEnMstrTable extends Migration
+class CreatePosVoucherDetailTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,9 @@ class AddVotesToEnMstrTable extends Migration
      */
     public function up()
     {
-        Schema::table('en_mstr', function (Blueprint $table) {
-            //
-            $table->timestamp('en_upd_date')->nullable();
-            $table->timestamp('en_dt')->nullable();
+        Schema::create('pos_voucher_detail', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->timestamps();
         });
     }
 
@@ -27,8 +26,6 @@ class AddVotesToEnMstrTable extends Migration
      */
     public function down()
     {
-        Schema::table('en_mstr', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists('pos_voucher_detail');
     }
 }
