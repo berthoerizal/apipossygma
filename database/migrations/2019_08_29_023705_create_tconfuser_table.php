@@ -15,6 +15,11 @@ class CreateTconfuserTable extends Migration
     {
         Schema::create('tconfuser', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('usernama');
+            $table->string('password');
+            $table->integer('en_id')->nullable();
+            $table->integer('userid')->nullable();
+            $table->integer('user_ptnr_id')->nullable();
             $table->timestamps();
         });
     }

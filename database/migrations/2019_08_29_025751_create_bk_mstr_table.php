@@ -14,7 +14,9 @@ class CreateBkMstrTable extends Migration
     public function up()
     {
         Schema::create('bk_mstr', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('bk_id');
+            $table->string('bk_active')->nullable();
+            $table->string('bk_name')->nullable();
             $table->timestamps();
         });
     }

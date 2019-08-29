@@ -15,6 +15,9 @@ class CreatePosDetailShiftTable extends Migration
     {
         Schema::create('pos_detail_shift', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('shift_id')->nullable();
+            $table->bigInteger('nominal')->nullable();
+            $table->bigInteger('jml')->nullable();
             $table->timestamps();
         });
     }

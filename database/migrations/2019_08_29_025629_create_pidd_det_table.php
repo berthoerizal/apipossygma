@@ -15,6 +15,11 @@ class CreatePiddDetTable extends Migration
     {
         Schema::create('pidd_det', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('pidd_pid_oid')->nullable();
+            $table->bigInteger('pidd_price')->nullable();
+            $table->bigInteger('pidd_payment')->nullable();
+            $table->string('pidd_disc')->nullable();
+            $table->string('pidd_payment_type')->nullable();
             $table->timestamps();
         });
     }

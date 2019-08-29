@@ -14,7 +14,9 @@ class CreateLocMstrTable extends Migration
     public function up()
     {
         Schema::create('loc_mstr', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('loc_id');
+            $table->string('loc_active')->nullable();
+            $table->string('loc_desc')->nullable();
             $table->timestamps();
         });
     }

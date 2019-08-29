@@ -15,6 +15,18 @@ class CreatePosTransaksiTable extends Migration
     {
         Schema::create('pos_transaksi', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('invoice')->nullable();
+            $table->integer('user_id')->nullable();
+            $table->integer('meja_id')->nullable();
+            $table->string('nama_pelanggan');
+            $table->bigInteger('bayar')->nullable();
+            $table->integer('shift_id')->nullable();
+            $table->date('tanggal_transaksi')->nullable();
+            $table->integer('pricelist_id')->nullable();
+            $table->integer('member_id')->nullable();
+            $table->integer('voucher_id')->nullable();
+            $table->string('kode_voucher')->nullable();
+            $table->string('status')->nullable();
             $table->timestamps();
         });
     }

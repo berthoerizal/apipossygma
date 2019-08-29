@@ -15,6 +15,13 @@ class CreatePosDetailTransaksiTable extends Migration
     {
         Schema::create('pos_detail_transaksi', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('transaksi_id')->nullable();
+            $table->integer('barang_id')->nullable();
+            $table->string('kode_barang')->nullable();
+            $table->string('nama_barang')->nullable();
+            $table->bigInteger('harga_barang')->nullable();
+            $table->string('qty')->nullable();
+            $table->bigInteger('total_harga')->nullable();
             $table->timestamps();
         });
     }

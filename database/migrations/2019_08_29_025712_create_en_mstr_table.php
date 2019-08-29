@@ -14,7 +14,8 @@ class CreateEnMstrTable extends Migration
     public function up()
     {
         Schema::create('en_mstr', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('en_id');
+            $table->text('en_desc')->nullable();
             $table->timestamps();
         });
     }

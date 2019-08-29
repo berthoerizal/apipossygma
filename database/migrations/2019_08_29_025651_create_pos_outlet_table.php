@@ -15,6 +15,12 @@ class CreatePosOutletTable extends Migration
     {
         Schema::create('pos_outlet', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('entitas_id')->nullable();
+            $table->string('nama_outlet')->nullable();
+            $table->text('alamat')->nullable();
+            $table->integer('no_outlet')->nullable();
+            $table->integer('loc_id')->nullable();
+            $table->integer('bk_id')->nullable();
             $table->timestamps();
         });
     }

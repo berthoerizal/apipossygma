@@ -15,6 +15,10 @@ class CreatePosVoucherDetailTable extends Migration
     {
         Schema::create('pos_voucher_detail', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->integer('voucher_id');
+            $table->string('kode_voucher')->nullable();
+            $table->bigInteger('nominal')->nullable();
+            $table->integer('status')->nullable();
             $table->timestamps();
         });
     }

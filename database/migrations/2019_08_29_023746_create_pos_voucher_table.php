@@ -15,6 +15,13 @@ class CreatePosVoucherTable extends Migration
     {
         Schema::create('pos_voucher', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('kode_utama_voucher');
+            $table->string('nama_voucher');
+            $table->date('tanggal_mulai')->nullable();
+            $table->date('tanggal_akhir')->nullable();
+            $table->bigInteger('jumlah')->nullable();
+            $table->text('keterangan')->nullable();
+            $table->bigInteger('nominal_voucher')->nullable();
             $table->timestamps();
         });
     }

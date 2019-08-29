@@ -14,7 +14,10 @@ class CreatePiMstrTable extends Migration
     public function up()
     {
         Schema::create('pi_mstr', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('pi_id');
+            $table->integer('pi_oid')->nullable();
+            $table->string('pi_so_type')->nullable();
+            $table->string('pi_active')->nullable();
             $table->timestamps();
         });
     }

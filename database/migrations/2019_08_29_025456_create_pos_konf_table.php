@@ -15,6 +15,9 @@ class CreatePosKonfTable extends Migration
     {
         Schema::create('pos_konf', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->string('var')->nullable();
+            $table->string('value')->nullable();
+            $table->string('remark')->nullable();
             $table->timestamps();
         });
     }
