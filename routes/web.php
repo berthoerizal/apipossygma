@@ -16,6 +16,16 @@ $router->get('/', function () use ($router) {
 });
 
 $router->group(['prefix' => 'v1'], function () use ($router) {
+    $router->get('/outlet', 'OutletController@getOutlet');
+    $router->post('/outlet', 'OutletController@addOutlet');
+    $router->delete('/outlet/{id}', 'OutletController@deleteOutlet');
+    $router->patch('/outlet/{id}', 'OutletController@updateOutlet');
+    $router->get('/shift', 'ShiftController@getShift');
+    $router->post('/shift', 'ShiftController@addShift');
+    $router->delete('/shift/{id}', 'ShiftController@deleteShift');
+    $router->patch('/shift/{id}', 'ShiftController@updateShift');
+    $router->patch('/shift/open/{id}', 'ShiftController@openShift');
+    $router->patch('/shift', 'ShiftController@closeShift');
     $router->get('/tconfuser', 'TconfusersController@getTconfuser');
     $router->get('/users', 'UsersController@getUsers');
     $router->post('/users', 'UsersController@addUser');
@@ -31,22 +41,12 @@ $router->group(['prefix' => 'v1'], function () use ($router) {
     $router->post('/konfigurasi', 'KonfigurasiController@addKonfigurasi');
     $router->delete('/konfigurasi/{id}', 'KonfigurasiController@deleteKonfigurasi');
     $router->patch('/konfigurasi/{id}', 'KonfigurasiController@updateKonfigurasi');
-    $router->get('/outlet', 'OutletController@getOutlet');
-    $router->post('/outlet', 'OutletController@addOutlet');
-    $router->delete('/outlet/{id}', 'OutletController@deleteOutlet');
-    $router->patch('/outlet/{id}', 'OutletController@updateOutlet');
     $router->post('/image/{pt_id}', 'ImageController@updateImage');
     $router->get('/voucher/{id}', 'VoucherController@detailVoucher');
     $router->get('/voucher', 'VoucherController@getVoucher');
     $router->post('/voucher', 'VoucherController@store');
     $router->patch('/voucher/{id}', 'VoucherController@update');
     $router->delete('/voucher/{id}', 'VoucherController@destroy');
-    $router->get('/shift', 'ShiftController@getShift');
-    $router->post('/shift', 'ShiftController@addShift');
-    $router->delete('/shift/{id}', 'ShiftController@deleteShift');
-    $router->patch('/shift/{id}', 'ShiftController@updateShift');
-    $router->patch('/shift/open/{id}', 'ShiftController@openShift');
-    $router->patch('/shift', 'ShiftController@closeShift');
     $router->post('/transaksi', 'TransaksiController@addTransaksi');
     $router->post('/transaksi', 'TransaksiController@getTransaksi');
     $router->get('/transaksi/{id}', 'TransaksiController@getTransaksiDetail');
